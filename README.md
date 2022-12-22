@@ -12,14 +12,14 @@ Arguments added are all optional but you can add the following arguments:
 Argument name: -w
 Description: Threshold % of warning levels of memory available. Defaults to 70
 Value type: String
-Value: $warning_level$
+Value: \$warning_level\$
 Condition format: String
 Required: No
 
 Argument name: -c
 Description: Threshold % of critical levels of memory available. Defaults to 90
 Value type: String
-Value: $critical_level$
+Value: \$critical_level\$
 Condition format: String
 Required: No
 
