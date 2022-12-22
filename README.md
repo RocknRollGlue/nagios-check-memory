@@ -6,6 +6,7 @@ python3
 
 ## Setup
 Place the check_memory.py in the plugins folder on the Icinga2 agent. Default folder is /usr/lib/nagios/plugins
+
 In Icinga2 director, add a new command, with the "Command" field as check_memory.py
 
 
