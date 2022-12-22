@@ -14,7 +14,6 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-w', '--warning_level', type=str, required=False, help='Threshold \% of warning levels of memory available. Defaults to 70', default=70)
 parser.add_argument('-c', '--critical_level', type=str, required=False, help='Threshold \% of critical levels of memory available. Defaults to 90', default=90)
-parser.add_argument('-f', '--format', type=str, required=False, help='outputs memory levels in kB, MB, GB. Defaults to Memory', default='MB')
 params = parser.parse_args()
 
 def AttemptParseArguments():
@@ -40,17 +39,6 @@ def getMemoryUsage():
             if line.startswith('MemAvailable:'):
                 avail_mem = int(line.split()[1])
 
-    #Transform to requested format
-    match str(params.format).lower():
-        case "kb":  
-            avail_mem *= 1000
-            total_mem *= 1000
-        case "gb":
-            avail_mem /= 1000000
-            total_mem /= 1000000
-        case _: #defaulting to MB transformation
-            avail_mem /= 1000
-            total_mem /= 1000
     #return percentage of available memory
     return 100-(avail_mem / total_mem)*100
 
@@ -89,8 +77,10 @@ def generateOutputString(displayString, _label, _value, _warn_value, _crit_value
     )
     return f"{displayString} |{rtaString}"
 
+AttemptParseArguments()
 _memoryUsage = round(getMemoryUsage(),2 )
 _status=getStatus(_memoryUsage)
 _displayString = "STATUS {status} - Memory Usage: {memory}%".format(status=_status['string'], memory=_memoryUsage)
 print(generateOutputString(_displayString, "Memory", _memoryUsage, int(params.warning_level), int(params.critical_level)))
 sys.exit(_status["code"])
+
