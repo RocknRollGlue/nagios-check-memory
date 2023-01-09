@@ -12,8 +12,8 @@ import argparse
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-w', '--warning_level', type=str, required=False, help='Threshold \% of warning levels of memory available. Defaults to 70', default=70)
-parser.add_argument('-c', '--critical_level', type=str, required=False, help='Threshold \% of critical levels of memory available. Defaults to 90', default=90)
+parser.add_argument('-w', '--warning_level', type=str, required=False, help='Threshold %% of warning levels of memory available. Defaults to 70', default=70)
+parser.add_argument('-c', '--critical_level', type=str, required=False, help='Threshold %% of critical levels of memory available. Defaults to 90', default=90)
 params = parser.parse_args()
 
 def AttemptParseArguments():
@@ -69,7 +69,7 @@ def getStatus(memory_usage):
 
 def generateOutputString(displayString, _label, _value, _warn_value, _crit_value):
     # creating output as according to https://icinga.com/docs/icinga-2/latest/doc/05-service-monitoring/#performance-data-metrics
-    rtaString = "'{label}'={value};{warn_value};{crit_value};".format(
+    rtaString = "'{label}'={value};{warn_value};{crit_value};0;100".format(
         label = _label, 
         value = _value, 
         warn_value = _warn_value, 
